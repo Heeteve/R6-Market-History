@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         R6 Marketplace 交易历史导出
 // @namespace    http://tampermonkey.net/
-// @version      1.3
+// @version      1.4
 // @description  在R6市场页面右下角添加导出按钮，提取所有交易历史并导出为JSON文件
 // @author       Gemini, Heeteve
 // @match        https://www.ubisoft.com/*/game/rainbow-six/siege/marketplace*
@@ -122,15 +122,22 @@
             data = JSON.stringify(data, undefined, 4);
         }
 
-        const blob = new Blob([data], { type: 'text/json' });
-        const e = document.createEvent('MouseEvents');
+        const blob = new Blob([data], { type: 'application/json' });
+        const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
 
+        a.style.display = 'none';
+        a.href = url;
         a.download = filename;
-        a.href = window.URL.createObjectURL(blob);
-        a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
-        e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-        a.dispatchEvent(e);
+        
+        document.body.appendChild(a);
+        a.click(); // 直接模拟点击，不再使用复杂的 initMouseEvent
+
+        // 清理
+        setTimeout(() => {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }, 100);
     }
 
     // 2. 处理请求逻辑 (接收 localeCode 参数)
