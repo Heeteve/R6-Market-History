@@ -24,10 +24,12 @@ const Sidebar: React.FC<Props> = ({ activeTab, setActiveTab, hasData, onReset })
         setLanguage(language === 'zh' ? 'en' : 'zh');
     };
 
+    const LOGO_URL = "https://staticctf.ubisoft.com/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/7FnTRI8Ym3eVJ8OztjIpXo/63590bd2b9cd330b43e7a4b8e792cdf0/r6s-x-dicover-ico-04.png";
+
     return (
         <div className="w-20 md:w-64 flex flex-col bg-slate-900/50 backdrop-blur-xl border-r border-white/10 h-screen transition-all duration-300">
             <div className="p-6 flex items-center gap-3 border-b border-white/5">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-accent-cyan to-accent-purple shadow-lg" />
+                <img src={LOGO_URL} className="w-8 h-8 rounded-lg shadow-lg object-contain" alt="Logo" />
                 <span className="font-bold text-lg text-white hidden md:block tracking-tight">R6 Market History</span>
             </div>
 
@@ -91,9 +93,15 @@ const Sidebar: React.FC<Props> = ({ activeTab, setActiveTab, hasData, onReset })
 
             {/* Footer */}
             <div className="p-4 border-t border-white/5 text-sm text-slate-500 flex flex-col gap-2 hidden md:flex">
-                <div className="flex items-center gap-2">
-                    <span><a href="https://space.bilibili.com/10521533" target="_blank" rel="noopener noreferrer" className="hover:text-accent-cyan transition-colors">Heeteve</a>@Iqxql</span>
-                    <a href="https://github.com/Heeteve/R6-Market-History/issues" target="_blank" rel="noopener noreferrer" className="hover:text-accent-cyan transition-colors">{t('feedback')}</a>
+                <div className="flex items-center justify-between gap-6">
+                    <span>
+                        <a href="https://space.bilibili.com/10521533" target="_blank" rel="noopener noreferrer" className="hover:text-accent-cyan transition-colors">Heeteve</a>
+                        <span className="mx-0.5 text-slate-600">@</span>
+                        <span>Iqxql</span>
+                    </span>
+                    <a href="https://github.com/Heeteve/R6-Market-History/issues" target="_blank" rel="noopener noreferrer" className="hover:text-accent-cyan transition-colors whitespace-nowrap">
+                        {t('feedback')}
+                    </a>
                 </div>
             </div>
         </div>

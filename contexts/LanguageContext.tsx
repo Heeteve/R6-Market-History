@@ -40,7 +40,7 @@ const translations = {
         page_of: "页 / 共",
         show_per_page: "每页显示",
         stats_title: "统计分析",
-        limits_title: "上限物品统计",
+        limits_title: "上限物品",
         limits_subtitle: "显示已成功售出 3 次及以上的物品。",
         total_rev: "总收入",
         total_spend: "总支出",

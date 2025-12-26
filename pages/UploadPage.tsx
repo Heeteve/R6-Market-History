@@ -48,7 +48,7 @@ const UploadPage: React.FC<Props> = ({ onDataLoaded }) => {
     return (
         <div className="h-full flex flex-col items-center justify-center p-8 animate-fade-in">
             <div className="text-center mb-12">
-                <h1 className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-accent-cyan via-accent-purple to-accent-pink mb-4">
+                <h1 className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-accent-cyan via-accent-purple to-accent-pink pb-4">
                     {t('upload_title')}
                 </h1>
                 <div className="text-slate-400 text-lg max-w-lg mx-auto leading-relaxed">
