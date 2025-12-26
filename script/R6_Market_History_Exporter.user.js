@@ -117,21 +117,17 @@
             console.error('没有数据可保存');
             return;
         }
-
         if (typeof data === 'object') {
             data = JSON.stringify(data, undefined, 4);
         }
-
         const blob = new Blob([data], { type: 'application/json' });
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
-
         a.style.display = 'none';
         a.href = url;
         a.download = filename;
-        
         document.body.appendChild(a);
-        a.click(); // 直接模拟点击，不再使用复杂的 initMouseEvent
+        a.click();
 
         // 清理
         setTimeout(() => {
