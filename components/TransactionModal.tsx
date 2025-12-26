@@ -43,7 +43,7 @@ const TransactionModal: React.FC<Props> = ({ transaction, onClose }) => {
                         <div className="w-full md:w-1/3 aspect-square bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl flex items-center justify-center p-4 border border-white/5 relative overflow-hidden group">
                             <div className="absolute inset-0 bg-accent-purple/20 blur-3xl opacity-0 group-hover:opacity-50 transition-opacity" />
                             {item?.assetUrl ? (
-                                <img src={item.assetUrl} alt={item.name} className="w-full h-full object-contain relative z-10 drop-shadow-2xl" />
+                                <img src={item.assetUrl} alt={item.name} className="w-full h-full object-contain relative z-1 drop-shadow-2xl" />
                             ) : (
                                 <Box className="text-slate-600" size={48} />
                             )}
@@ -85,10 +85,10 @@ const TransactionModal: React.FC<Props> = ({ transaction, onClose }) => {
                                 <span className="text-sm font-medium">{t('date')}</span>
                             </div>
                             <div className="text-lg text-white">
-                                {formatDate(transaction.createdAt)}
+                                {formatDate(transaction.lastModifiedAt)}
                             </div>
                             <div className="text-xs text-slate-500 mt-1">
-                                {t('last_mod')}: {formatDate(transaction.lastModifiedAt)}
+                                {t('created_at')}: {formatDate(transaction.createdAt)}
                             </div>
                         </GlassCard>
                     </div>

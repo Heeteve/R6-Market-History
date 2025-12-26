@@ -1,10 +1,10 @@
 import React from 'react';
-import { LayoutDashboard, History, BarChart2, LogOut, Globe } from 'lucide-react';
+import { LayoutDashboard, History, BarChart2, LogOut, Globe, AlertOctagon } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 interface Props {
-    activeTab: 'upload' | 'history' | 'stats';
-    setActiveTab: (tab: 'upload' | 'history' | 'stats') => void;
+    activeTab: 'upload' | 'history' | 'stats' | 'limits';
+    setActiveTab: (tab: 'upload' | 'history' | 'stats' | 'limits') => void;
     hasData: boolean;
     onReset: () => void;
 }
@@ -58,6 +58,15 @@ const Sidebar: React.FC<Props> = ({ activeTab, setActiveTab, hasData, onReset })
                     <BarChart2 size={20} />
                     <span className="hidden md:block font-medium">{t('nav_analytics')}</span>
                 </button>
+
+                <button 
+                    onClick={() => setActiveTab('limits')}
+                    className={navItemClass('limits', !hasData)}
+                    title={t('nav_limits')}
+                >
+                    <AlertOctagon size={20} />
+                    <span className="hidden md:block font-medium">{t('nav_limits')}</span>
+                </button>
             </nav>
 
             <div className="p-4 border-t border-white/5 space-y-2">
@@ -81,12 +90,11 @@ const Sidebar: React.FC<Props> = ({ activeTab, setActiveTab, hasData, onReset })
             </div>
 
             {/* Footer */}
-            <div className="p-4 border-t border-white/5 text-xs text-slate-500 flex flex-col gap-2 hidden md:flex">
-                <div className="flex items-center gap-1">
-                    <a href="https://space.bilibili.com/10521533" target="_blank" rel="noopener noreferrer" className="hover:text-accent-cyan transition-colors">Heeteve</a>
-                    <span>@Iqxql</span>
+            <div className="p-4 border-t border-white/5 text-sm text-slate-500 flex flex-col gap-2 hidden md:flex">
+                <div className="flex items-center gap-2">
+                    <span><a href="https://space.bilibili.com/10521533" target="_blank" rel="noopener noreferrer" className="hover:text-accent-cyan transition-colors">Heeteve</a>@Iqxql</span>
+                    <a href="https://github.com/Heeteve/R6-Market-History/issues" target="_blank" rel="noopener noreferrer" className="hover:text-accent-cyan transition-colors">{t('feedback')}</a>
                 </div>
-                <a href="https://github.com/Heeteve/R6-Market-History/issues" target="_blank" rel="noopener noreferrer" className="hover:text-accent-cyan transition-colors">{t('feedback')}</a>
             </div>
         </div>
     );

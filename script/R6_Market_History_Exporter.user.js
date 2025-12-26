@@ -6,7 +6,7 @@
 // @author       Gemini, Heeteve
 // @match        https://www.ubisoft.com/*/game/rainbow-six/siege/marketplace*
 // @icon         https://www.ubisoft.com/favicon.ico
-// @grant        none
+// @run-at       document-body
 // ==/UserScript==
 
 (function() {

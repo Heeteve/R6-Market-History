@@ -10,8 +10,6 @@ interface Props {
     data: TradeNode[];
 }
 
-const ITEMS_PER_PAGE = 20;
-
 // Defined custom sort order for item types
 const TYPE_ORDER = [
     'WeaponSkin',
@@ -33,6 +31,7 @@ const HistoryPage: React.FC<Props> = ({ data }) => {
     const [timeFilter, setTimeFilter] = useState<'all' | 'newest' | 'oldest'>('newest');
     const [selectedTransaction, setSelectedTransaction] = useState<TradeNode | null>(null);
     const [page, setPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(10);
 
     // Extract unique item types for the dropdown and apply custom sorting
     const itemTypes = useMemo(() => {
@@ -86,11 +85,11 @@ const HistoryPage: React.FC<Props> = ({ data }) => {
 
     // Pagination
     const paginatedData = useMemo(() => {
-        const start = (page - 1) * ITEMS_PER_PAGE;
-        return filteredData.slice(start, start + ITEMS_PER_PAGE);
-    }, [filteredData, page]);
+        const start = (page - 1) * itemsPerPage;
+        return filteredData.slice(start, start + itemsPerPage);
+    }, [filteredData, page, itemsPerPage]);
 
-    const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
     const getStatusBadgeStyle = (status: string) => {
         switch (status) {
@@ -190,7 +189,7 @@ const HistoryPage: React.FC<Props> = ({ data }) => {
                                         {item?.type && <span className="text-xs text-slate-500 border border-white/10 px-1 rounded">{translateItemType(item.type, t)}</span>}
                                     </div>
                                     <div className="flex flex-wrap gap-2 text-xs text-slate-400">
-                                        <span>{formatDate(node.createdAt)}</span>
+                                        <span>{formatDate(node.lastModifiedAt)}</span>
                                         <span className="text-slate-600">•</span>
                                         <div className="flex items-center gap-1">
                                             {isSell ? <ArrowUpRight size={12} className="text-amber-400" /> : <ArrowDownLeft size={12} className="text-blue-400" />}
@@ -221,27 +220,44 @@ const HistoryPage: React.FC<Props> = ({ data }) => {
             </div>
 
             {/* Pagination Controls */}
-            {totalPages > 1 && (
-                <div className="mt-4 flex justify-center gap-2">
-                    <button 
-                        onClick={() => setPage(p => Math.max(1, p - 1))}
-                        disabled={page === 1}
-                        className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 disabled:opacity-50 text-white transition-colors"
+            <div className="mt-4 flex flex-col sm:flex-row justify-between items-center gap-4 pb-4">
+                <div className="flex items-center gap-2 text-sm text-slate-400">
+                    <span>{t('show_per_page')}</span>
+                    <select 
+                        value={itemsPerPage}
+                        onChange={(e) => { setItemsPerPage(Number(e.target.value)); setPage(1); }}
+                        className="bg-slate-800/50 border border-white/10 rounded px-2 py-1 text-white focus:outline-none focus:border-accent-purple/50 cursor-pointer"
                     >
-                        {t('prev')}
-                    </button>
-                    <span className="px-4 py-2 text-slate-400">
-                        {t('page')} {page} {t('page_of')} {totalPages}
-                    </span>
-                    <button 
-                        onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-                        disabled={page === totalPages}
-                        className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 disabled:opacity-50 text-white transition-colors"
-                    >
-                        {t('next')}
-                    </button>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
                 </div>
-            )}
+
+                {totalPages > 1 && (
+                    <div className="flex justify-center gap-2">
+                        <button 
+                            onClick={() => setPage(p => Math.max(1, p - 1))}
+                            disabled={page === 1}
+                            className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 disabled:opacity-50 text-white transition-colors"
+                        >
+                            {t('prev')}
+                        </button>
+                        <span className="px-4 py-2 text-slate-400">
+                            {t('page')} {page} {t('page_of')} {totalPages}
+                        </span>
+                        <button 
+                            onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                            disabled={page === totalPages}
+                            className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 disabled:opacity-50 text-white transition-colors"
+                        >
+                            {t('next')}
+                        </button>
+                    </div>
+                )}
+            </div>
 
             <TransactionModal 
                 transaction={selectedTransaction} 

@@ -3,12 +3,13 @@ import Sidebar from './components/Sidebar';
 import UploadPage from './pages/UploadPage';
 import HistoryPage from './pages/HistoryPage';
 import StatsPage from './pages/StatsPage';
+import LimitsPage from './pages/LimitsPage';
 import { parseTradeData } from './utils';
 import { TradeNode } from './types';
 import { LanguageProvider } from './contexts/LanguageContext';
 
 const AppContent: React.FC = () => {
-    const [activeTab, setActiveTab] = useState<'upload' | 'history' | 'stats'>('upload');
+    const [activeTab, setActiveTab] = useState<'upload' | 'history' | 'stats' | 'limits'>('upload');
     const [data, setData] = useState<TradeNode[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -67,6 +68,7 @@ const AppContent: React.FC = () => {
                 {activeTab === 'upload' && <UploadPage onDataLoaded={handleDataLoaded} />}
                 {activeTab === 'history' && <HistoryPage data={data} />}
                 {activeTab === 'stats' && <StatsPage data={data} />}
+                {activeTab === 'limits' && <LimitsPage data={data} />}
             </main>
         </div>
     );
