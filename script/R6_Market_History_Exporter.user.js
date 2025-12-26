@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         R6 Marketplace 交易历史导出
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.3
 // @description  在R6市场页面右下角添加导出按钮，提取所有交易历史并导出为JSON文件
 // @author       Gemini, Heeteve
 // @match        https://www.ubisoft.com/*/game/rainbow-six/siege/marketplace*
